@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Đjurđjevak</title>
+    <link rel="shortcut icon" href="./img/favicon.ico">
+</head>
+
+<body>
+    <nav>
+        <!--  -->
+        <div id="menuDjurdjevak">
+            <img src="./img/favicon.ico">
+            <span>Đjurđjevak</span>
+        </div>
+        <!-- menu -->
+        <div id="menu">
+            <ul>
+
+                <li>
+                    <a onclick="madjarski()">Mađarski</a>
+                </li>
+            </ul>
+        </div>
+        <div id="desno">Djurdjevak123</div>
+    </nav>
+    <!-- all content -->
+    <div class="sve" id="sve">
+
+        <!-- Cock -->
+        <div class="sat">
+            <span id="JS_clock"></span>
+        </div>
+        <!-- Alarm -->
+        <div class="alarm">
+            <!-- Form for time input -->
+            <form>
+
+                <label for="s">Party time:</label>
+                <input placeholder="Enter time" id="fieldTime" maxlength="2" type="time">
+
+            </form>
+            <!-- dugme -->
+            <button id="setAlarm" onclick="setAlarm()">Set Alarm</button>
+            <div id="ytVid"></div>
+        </div>
+        <!-- djurdjevak -->
+        <img id="djurdjevak" src="./img/djurdjevak.png">
+
+
+</body>
+
+<script src="./JS/clock.js"></script>
+<script src="./JS/limitInput.js"></script>
+<script src="./JS/timer.js"></script>
+<script src="JS/madjarski.js"></script>
+
+</html>

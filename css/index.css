@@ -1,0 +1,165 @@
+body {
+    background-color: #2a9d8f;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* menu */
+
+nav {
+    top: 0px;
+    position: fixed;
+    display: flex;
+    width: 100vw;
+    color: #f8edeb;
+    background-color: #264653;
+    font-size: 220%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav li {
+    display: flex;
+    padding: 0px 0px;
+    transition: 1s;
+}
+
+nav li:hover {
+    color: green;
+}
+
+#menu {
+    justify-content: center;
+    align-items: baseline;
+    justify-content: center;
+    display: flex;
+}
+
+
+/* djurdjevak logo */
+
+nav #menuDjurdjevak {
+    display: flex;
+    height: inherit;
+    justify-self: flex-start;
+}
+
+#menuDjurdjevak span {
+    display: inline;
+    transition: 0.5s;
+}
+
+#menuDjurdjevak img {
+    height: 40px;
+    fill: white;
+}
+
+#desno {
+    opacity: 0;
+}
+
+
+/* under menu */
+
+#JS_clock {
+    color: azure;
+    font-size: 150px;
+}
+
+.alarm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.alarmTitle {
+    color: white;
+    font-size: 50px;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form div {
+    padding: 0px 10px;
+}
+
+form label {
+    padding: 10px;
+    color: white;
+    font-size: 150%;
+}
+
+form input {
+    font-family: sans-serif;
+    width: 180px;
+    height: 40px;
+    font-size: 180%;
+    text-align: center;
+    border-radius: 8px;
+}
+
+
+/* remove input spinners */
+
+input[type=time]::-webkit-inner-spin-button,
+input[type=time]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button {
+    font-size: 120%;
+    color: white;
+    border-radius: 50px;
+    margin: 20px;
+    height: 55px;
+    width: 150px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 6px black;
+    background-color: #23796f;
+    transition: width 0.5s ease;
+}
+
+button:hover {
+    width: 165px;
+}
+
+button:active {
+    box-shadow: 1px 1px 3px black;
+}
+
+iframe {
+    display: none;
+}
+
+
+/* display se ukljuci kad se ucita stranica tj u madjarski.js jer inace se pali slika pri ucitavanju */
+
+#djurdjevak {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    height: 80%;
+    right: 5%;
+    bottom: 5%;
+    transition: 3s ease;
+}
