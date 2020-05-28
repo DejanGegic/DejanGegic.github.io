@@ -53,6 +53,7 @@ nav #menuDjurdjevak {
     display: flex;
     height: inherit;
     justify-self: flex-start;
+    align-items: center;
 }
 
 #menuDjurdjevak span {
@@ -61,7 +62,7 @@ nav #menuDjurdjevak {
 }
 
 #menuDjurdjevak img {
-    height: 40px;
+    height: 50px;
     fill: white;
 }
 
@@ -167,6 +168,12 @@ iframe {
 @media screen and (max-width: 991px) {
     body {
         align-items: flex-start;
+    }
+    nav {
+        font-size: 350%;
+    }
+    #menuDjurdjevak img {
+        height: 94px;
     }
     #sve {
         margin-top: 55%;
