@@ -148,7 +148,7 @@ button:active {
 }
 
 iframe {
-    display: none;
+    display: inline;
 }
 
 
@@ -162,4 +162,33 @@ iframe {
     right: 5%;
     bottom: 5%;
     transition: 3s ease;
+}
+
+@media screen and (max-width: 991px) {
+    body {
+        align-items: flex-start;
+    }
+    #sve {
+        margin-top: 55%;
+    }
+    #djurdjevak {
+        opacity: ;
+        height: 35%;
+        margin: auto auto;
+        left: 0;
+    }
+    form label {
+        font-size: 280%;
+    }
+    form input {
+        width: 15vh;
+        height: 4vh;
+        font-size: 300%;
+    }
+    #setAlarm {
+        width: 350px;
+        height: 100px;
+        font-size: 260%;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.534);
+    }
 }
