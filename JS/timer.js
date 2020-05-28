@@ -24,10 +24,11 @@ function countdown() {
     let loop = true;
     // 
     if (now.getMinutes() == arr[1] && now.getHours() == arr[0]) {
-        // pusti yt video
-        var el = document.getElementById('ytVid');
-        var body = document.getElementsByTagName('body');
-        el.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/M5MxG6YFcSA?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        // pusti djurdjevdan
+        var audio = new Audio("./audio/djurdjevdan.mp3");
+        audio.currentTime = 6;
+        audio.play();
+
         loop = false; //izadji iz loopa
         //proikazi djurdjevak
         let djur = document.getElementById("djurdjevak").style.opacity = "1";
