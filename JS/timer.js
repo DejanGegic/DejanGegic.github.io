@@ -1,7 +1,7 @@
 let setTime; //vrijeme koje je ubaceno
 let now; //vrijeme koje je sad
 let arr; //array iz setTime
-
+let postavljen = false; //provjerava da li je alarm vec pokrenut
 
 
 
@@ -13,15 +13,23 @@ function setAlarm() {
     arr = setTime.split(":");
 
 
+    if (!postavljen) {
+        countdown();
+        notificationAlarm();
+        postavljen = true;
+    } else { alert("Your alarm is already set for: " + setTime) }
+}
 
-    countdown();
+function notificationAlarm() {
+    var alarmTime = document.getElementById('alarmTime');
+    alarmTime.innerHTML = 'Alarm set for: ' + setTime;
 }
 
 function countdown() {
     //get time now
     now = new Date();
     //loop it until we hit the time
-    let loop = true;
+    var loop = true;
     // 
     if (now.getMinutes() == arr[1] && now.getHours() == arr[0]) {
         // pusti djurdjevdan
