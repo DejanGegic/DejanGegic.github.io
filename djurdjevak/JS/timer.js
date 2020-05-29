@@ -5,7 +5,7 @@ let postavljen = false; //provjerava da li je alarm vec pokrenut
 //ucitaj djurdjevdan.mp3
 var audio = new Audio("./audio/djurdjevdan.mp3");
 audio.currentTime = 6;
-audio.load;
+audio.load();
 
 
 function setAlarm() {
@@ -44,7 +44,7 @@ function countdown() {
         let djur = document.getElementById("djurdjevak").style.opacity = "1";
 
     } else {
-        console.log("ne jos")
+        console.log("ne jos" + "v1.1")
     }
     if (loop) {
 
