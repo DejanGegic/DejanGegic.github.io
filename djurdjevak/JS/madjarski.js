@@ -1,6 +1,6 @@
 let djur = document.getElementById("djurdjevak").style.display = "inline";
 //ucitaj  mp3
-var audioMadjarski = new audioMadjarski('./audioMadjarski/madjarski.mp3');
+var audioMadjarski = new Audio('/djurdjevak/audio/madjarski.mp3');
 audioMadjarski.load();
 
 function madjarski() {
