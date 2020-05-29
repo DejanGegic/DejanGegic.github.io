@@ -2,7 +2,10 @@ let setTime; //vrijeme koje je ubaceno
 let now; //vrijeme koje je sad
 let arr; //array iz setTime
 let postavljen = false; //provjerava da li je alarm vec pokrenut
-
+//ucitaj djurdjevdan.mp3
+var audio = new Audio("./audio/djurdjevdan.mp3");
+audio.currentTime = 6;
+audio.load;
 
 
 function setAlarm() {
@@ -33,8 +36,7 @@ function countdown() {
     // 
     if (now.getMinutes() == arr[1] && now.getHours() == arr[0]) {
         // pusti djurdjevdan
-        var audio = new Audio("./audio/djurdjevdan.mp3");
-        audio.currentTime = 6;
+
         audio.play();
 
         loop = false; //izadji iz loopa
