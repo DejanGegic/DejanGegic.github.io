@@ -44,7 +44,7 @@ function countdown() {
         let djur = document.getElementById("djurdjevak").style.opacity = "1";
 
     } else {
-        console.log("ne jos" + "v1.1")
+        console.log("ne jos" + "v1.2");
     }
     if (loop) {
 

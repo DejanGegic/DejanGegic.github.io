@@ -1,11 +1,11 @@
 let djur = document.getElementById("djurdjevak").style.display = "inline";
 //ucitaj  mp3
-var audio = new Audio('./audio/madjarski.mp3');
-audio.load();
+var audioMadjarski = new audioMadjarski('./audioMadjarski/madjarski.mp3');
+audioMadjarski.load();
 
 function madjarski() {
     let djur = document.getElementById("djurdjevak").style.opacity = "1";
-    audio.play();
+    audioMadjarski.play();
     var t = setTimeout(ugasiSliku, 3500);
 
 }
