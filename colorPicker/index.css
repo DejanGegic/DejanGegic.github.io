@@ -53,5 +53,14 @@ nav h2 {
 #colorChange:focus,
 #colorChange:active {
     outline: none;
-    background-color: ;
+}
+
+@media (min-width: 700px) {
+    #centerBox {
+        padding: 0px 25px;
+        width: auto;
+    }
+    #main {
+        font-size: 2em;
+    }
 }
