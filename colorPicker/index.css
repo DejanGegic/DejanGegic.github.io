@@ -1,0 +1,57 @@
+nav {
+    font-size: 250%;
+    display: fixed;
+    background-color: rgb(223, 223, 223);
+    box-shadow: 0px 3px 10px black;
+}
+
+nav content {
+    display: flex;
+    justify-content: center;
+}
+
+nav h2 {
+    margin: 0px;
+    padding: 25px;
+    font-size: 150%;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 133px);
+    font-size: 2.5em;
+    ;
+}
+
+#centerBox {
+    justify-content: center;
+    display: flex;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    width: 75vw;
+}
+
+#yourColor {
+    padding-right: 20px;
+}
+
+#colorChange {
+    display: flex;
+    justify-content: center;
+    border: 5px black solid;
+    background-color: rgba(139, 0, 139, 0);
+    border-radius: 50px;
+    margin: 20px;
+    padding: 20px;
+    font-size: 2em;
+}
+
+#colorChange:focus,
+#colorChange:active {
+    outline: none;
+    background-color: ;
+}
