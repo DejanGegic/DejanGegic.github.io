@@ -20,7 +20,7 @@ function setAlarm() {
         countdown();
         notificationAlarm();
         postavljen = true;
-    } else { alert("Your alarm is already set for: " + setTime) }
+    } else { notificationAlarm() }
 }
 
 function notificationAlarm() {
