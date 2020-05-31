@@ -53,15 +53,18 @@ footer {
 #colorName {
     text-align: center;
     margin: 5px;
-    font-size: 15vw;
+    font-size: 9vh;
 }
 
 #contentLower h2 {
     margin: 0px;
+    font-size: 4vh;
 }
 
 button {
-    width: 90px;
+    background-color: black;
+    color: rgb(255, 255, 255);
+    font-size: 500%;
 }
 
 
@@ -97,14 +100,8 @@ button {
     margin: 20px;
     padding: 20px;
     font-size: 2em;
-} */
-
-#colorChange:focus,
-#colorChange:active {
-    outline: none;
-}
-
-@media (min-width: 700px) {
+    
+    @media (min-width: 700px) {
     #centerBox {
         padding: 0px 25px;
         width: auto;
@@ -112,4 +109,10 @@ button {
     #main {
         font-size: 2em;
     }
+}
+} */
+
+#colorChange:focus,
+#colorChange:active {
+    outline: none;
 }
