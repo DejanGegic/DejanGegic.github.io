@@ -22,7 +22,9 @@ nav h2 {
     font-size: 150%;
 }
 
-#main {}
+#main {
+    height: 75vh;
+}
 
 footer {
     display: flex;
@@ -44,6 +46,11 @@ footer {
     align-items: center;
 }
 
+#contentLower h2 {
+    margin: 0px;
+    font-size: 4vh;
+}
+
 #row1 {
     display: flex;
     flex-direction: column;
@@ -56,9 +63,16 @@ footer {
     font-size: 9vh;
 }
 
-#contentLower h2 {
-    margin: 0px;
-    font-size: 4vh;
+#row2 {}
+
+#row2,
+#row2 h2,
+#row2 #cube {
+    display: inline;
+}
+
+#cube {
+    padding: 20px;
 }
 
 button {

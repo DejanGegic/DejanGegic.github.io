@@ -1,6 +1,8 @@
 let heksElement = document.getElementById("colorHash"); //get string that needs to carry hex value
-
 let heksValue;
+
+document.querySelector("body").addEventListener("click", hexGenerate());
+
 
 function hexGenerate() {
     heksValue = Math.floor(Math.random() * 16777215).toString(16); //get hex value
@@ -22,6 +24,10 @@ function hexDisplay() {
 
     document.getElementById("colorName").innerHTML = specific_name;
     document.getElementById("closestHash").innerHTML = rgb_value;
+    document.getElementById("cube").style.backgroundColor = rgb_value;
+
+
+
     console.log(rgb_value);
     console.log(specific_name);
     console.log(is_exact_match);
