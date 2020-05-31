@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
+body {}
+
 nav {
     font-size: 250%;
     display: fixed;
@@ -16,16 +22,59 @@ nav h2 {
     font-size: 150%;
 }
 
-#main {
+#main {}
+
+footer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    height: calc(100vh - 133px);
-    font-size: 2.5em;
-    ;
+    flex-flow: column;
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
+    height: 25vh;
+    background-color: rgb(255, 255, 255);
+    color: rgb(24, 24, 24);
 }
 
+#contentLower {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#row1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#colorName {
+    text-align: center;
+    margin: 5px;
+    font-size: 15vw;
+}
+
+#contentLower h2 {
+    margin: 0px;
+}
+
+button {
+    width: 90px;
+}
+
+
+/* 
+    #main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 133px);
+        font-size: 2.5em;
+        ;
+    }
 #centerBox {
     justify-content: center;
     display: flex;
@@ -48,7 +97,7 @@ nav h2 {
     margin: 20px;
     padding: 20px;
     font-size: 2em;
-}
+} */
 
 #colorChange:focus,
 #colorChange:active {
