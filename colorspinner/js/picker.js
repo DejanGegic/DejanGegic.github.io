@@ -35,7 +35,7 @@ function hexDisplay() {
     console.log(rgb_value);
     console.log(specific_name);
     console.log(is_exact_match);
-
+    console.log("troubleshooter: " + document.getElementById("colorName").innerHTML);
 }
 
 function removePressMe() {
