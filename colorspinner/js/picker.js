@@ -1,12 +1,16 @@
 let heksElement = document.getElementById("colorHash"); //get string that needs to carry hex value
 let heksValue;
+let pressMe = false;
+//mjenjaj boju kad se klikne pozadina
+document.querySelector("#pozadina").addEventListener("click", hexGenerate);
 
-document.querySelector("body").addEventListener("click", hexGenerate());
-
+hexGenerate(); //pokreni ga odma
 
 function hexGenerate() {
+    removePressMe();
     heksValue = Math.floor(Math.random() * 16777215).toString(16); //get hex value
-    document.querySelector("body").style.backgroundColor = "#" + heksValue; //set body BG to random color
+    if (heksValue.length < 6) { heksValue = heksValue + "0" } //makes sure it's long enough
+    document.querySelector("#pozadina").style.backgroundColor = "#" + heksValue; //set body BG to random color
     heksElement.innerHTML = "#" + heksValue; //display it
     hexDisplay();
 
@@ -32,4 +36,12 @@ function hexDisplay() {
     console.log(specific_name);
     console.log(is_exact_match);
 
+}
+
+function removePressMe() {
+    if (!pressMe) {
+        pressMe = true;
+    } else {
+        document.getElementById("pozadina").innerHTML = "";
+    }
 }

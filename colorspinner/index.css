@@ -24,6 +24,23 @@ nav h2 {
 
 #main {
     height: 75vh;
+    content: "";
+}
+
+#pozadina {
+    height: 64vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#pozadina p {
+    margin: 0;
+    font-size: 10vh;
+    color: ivory;
+    opacity: 0.2;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
 
 footer {
@@ -39,10 +56,15 @@ footer {
     color: rgb(24, 24, 24);
 }
 
+#colorName {
+    text-align: center;
+    margin: 10px;
+    font-size: 7vh;
+}
+
 #contentLower {
     display: flex;
     flex-flow: column;
-    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -57,22 +79,16 @@ footer {
     align-items: flex-start;
 }
 
-#colorName {
-    text-align: center;
-    margin: 5px;
-    font-size: 9vh;
-}
-
 #row2 {}
 
 #row2,
 #row2 h2,
 #row2 #cube {
-    display: inline;
+    display: block;
 }
 
 #cube {
-    padding: 20px;
+    padding: 2vh;
 }
 
 button {
