@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-     transition: all 0.2s ease;
+     transition: all 0.8s ease;
 }
 
 body {}
@@ -23,17 +23,17 @@ nav h2 {
     font-size: 150%;
 }
 
-#main {
-    height: 75vh;
-    content: "";
-}
-
 #pozadina {
     height: 64vh;
     display: flex;
     align-items: center;
     justify-content: center;
-     transition: all 0.2s ease 0s;
+     transition: all 0.5s ease 0s;
+}
+
+#main {
+    height: 75vh;
+    content: "";
 }
 
 #pozadina p {
