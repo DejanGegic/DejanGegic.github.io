@@ -14,7 +14,6 @@ function hexGenerate() {
     heksElement.innerHTML = "#" + heksValue; //display it
     hexDisplay();
 
-    console.log(document.getElementById("colorName").innerHTML);
 
 }
 
