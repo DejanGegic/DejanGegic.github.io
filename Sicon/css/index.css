@@ -1,0 +1,249 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#containerMain {
+    font-size: 2.6em;
+    width: 100vw;
+    height: 100vh;
+    /* desktop */
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+.containerChild {
+    height: 100vh;
+    /* desktop */
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+.imageContainer {
+    height: 65vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.imageMain {
+    height: inherit;
+    width: inherit;
+    background-size: cover;
+    background-position: center;
+}
+
+#container1 .imageMain {
+    background-image: url("https://i.ibb.co/ZhjDMmN/Reservoir-Rendering-A.jpg");
+}
+
+#container2 .imageMain {
+    background-image: url("https://i.ibb.co/bRHhc07/Page-1-Image-5.png");
+}
+
+#container3 .imageMain {
+    background-image: url("https://i.ibb.co/f80nT98/Page-1-Image-12.png");
+}
+
+#container4 .imageMain {
+    background-image: url("https://i.ibb.co/mSD3Gdf/Page-1-Image-21.png");
+}
+
+#container5 .imageMain {
+    background-image: url("https://i.ibb.co/Htr3Fwf/Page-1-Image-18.png");
+}
+
+#container6 .imageMain {
+    background-image: url("https://i.ibb.co/vw5sT1f/Page-1-Image-29.png");
+}
+
+.textBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 35vh;
+    background-color: white;
+    padding: 50px;
+}
+
+.title {
+    font-size: 3.5vh;
+    color: rgba(0, 0, 0, 0.719);
+    margin: 0px;
+}
+
+.title h6 {
+    font-size: 100%;
+    margin: 0px;
+    font-weight: 400;
+    font-size: 80%;
+}
+
+.title h2 {
+    margin: 0px;
+    font-size: 1em;
+}
+
+.paragraph {
+    color: rgba(0, 0, 0, 0.856);
+    margin-bottom: 12px;
+}
+
+.paragraph p {
+    font-size: 2vh;
+    margin: 14px 0px;
+    font-weight: 100;
+}
+
+.button {
+    width: 100%;
+    border: black solid 5px;
+    border-radius: 100px;
+    text-align: center;
+    padding: 25px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:hover,
+.button:active {
+    background-color: black;
+    color: white;
+}
+
+.button a {
+    text-transform: uppercase;
+    font-size: 80%;
+    font-weight: 550;
+    vertical-align: middle;
+}
+
+@media (min-width: 750px) and (max-width: 1025px) {
+    body {
+        background-color: seagreen !important;
+    }
+    .title {
+        font-size: 1.2em;
+    }
+}
+
+@media (min-width: 1025px) {
+    body {
+        transition: 0.3s ease;
+    }
+    .containerChild {
+        height: 100vh;
+        display: flex;
+    }
+    .title {
+        font-size: 3.5vh;
+    }
+    .title h6 {
+        font-size: 50%;
+    }
+    .title h2 {
+        font-weight: 600;
+        margin: 0px;
+        font-size: 1em;
+    }
+    .paragraph {
+        color: rgba(0, 0, 0, 0.856);
+        margin-bottom: 12px;
+        padding-right: 10%;
+    }
+    .paragraph p {
+        font-size: 40%;
+        margin: 14px 0px;
+        font-weight: 350;
+        width: 100%;
+    }
+    .button {
+        transition: 0.3s ease;
+        border: black solid 3px;
+        border-radius: 100px;
+        white-space: nowrap;
+        padding: 20px 100px;
+        width: 0px;
+        height: 0px;
+    }
+    .button a {
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    /* Content Left */
+    .left {
+        flex-direction: row-reverse;
+    }
+    .left .imageContainer {
+        height: 100vh;
+        width: 70vw;
+        overflow: hidden;
+    }
+    .left .textBox {
+        width: 30%;
+        height: 100%;
+        background-color: white;
+        padding: 70px 20px;
+        justify-content: flex-start;
+    }
+    .left .button {
+        margin-top: auto;
+    }
+    /* content Bottom */
+    /* in bottom "button" div is placed inside
+    the "title" container */
+    .bottom {
+        display: flex;
+        flex-direction: column;
+    }
+    .bottom .imageContainer {
+        height: 75vh;
+    }
+    .bottom .textBox {
+        padding: 50px 25% 200px 25%;
+        height: 25vh;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .bottom .title {
+        width: 50%;
+        height: 50px;
+    }
+    .bottom .paragraph {
+        width: 50%;
+    }
+    .bottom .paragraph p {
+        width: 150%;
+    }
+    .bottom .button {
+        /* delete below */
+        margin-top: 20px;
+        font-weight: 500;
+    }
+    /* content right */
+    .right {
+        flex-direction: row;
+    }
+    .right .imageContainer {
+        height: 100vh;
+        width: 70vw;
+        overflow: hidden;
+    }
+    .right .textBox {
+        width: 30%;
+        height: 100%;
+        background-color: white;
+        padding: 70px 20px;
+        justify-content: flex-start;
+    }
+    .right .button {
+        margin-top: auto;
+    }
+    .desktop,
+    .mobile {
+        display: none;
+    }
+}
