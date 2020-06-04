@@ -1,13 +1,13 @@
-let kontejner = document.querySelectorAll(".containerChild");
+let kontejner = document.getElementById("containerMain");
 window.addEventListener("resize", provjera);
 provjera();
 
 function provjera() {
-    let visina = screen.availHeight;
-    for (let i = 0; i < kontejner.length; i++) {
-        kontejner[i].style.height = visina + "px";
-        console.log(kontejner[i].scrollHeight);
-    }
+    let visina = screen.height;
+
+    kontejner.style.height = visina + "px";
+    console.log(kontejner.height);
+
 
     var x = "Available Height: " + screen.availHeight;
     var y = "Height: " + screen.height;

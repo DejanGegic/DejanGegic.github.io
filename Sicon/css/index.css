@@ -13,7 +13,7 @@
 }
 
 .containerChild {
-    height: 100vh;
+    height: 100%;
     /* desktop */
     scroll-snap-align: start;
     scroll-snap-stop: always;
