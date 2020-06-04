@@ -14,7 +14,7 @@
 }
 
 .imageContainer {
-    height: 60vh;
+    height: 65vh;
     width: 100%;
     overflow: hidden;
 }
@@ -24,6 +24,10 @@
     width: inherit;
     background-size: cover;
     background-position: center;
+}
+
+#containerLanding .imageMain {
+    background-image: url("https://i.ibb.co/ZhjDMmN/Reservoir-Rendering-A.jpg");
 }
 
 #container1 .imageMain {
@@ -53,8 +57,8 @@
 .textBox {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 40vh;
+    justify-content: space-around;
+    height: 35vh;
     background-color: white;
     padding: 50px;
 }
@@ -112,13 +116,78 @@
     vertical-align: middle;
 }
 
-@media (max-width: 749px) {
-    #containerMain {
-        height: 5s0vh;
+
+/* First slide, landing */
+
+.first .textBox {
+    justify-content: space-evenly;
+    align-items: center;
+    height: 50vh;
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 10px;
+}
+
+.first .imageContainer {
+    height: 50vh;
+}
+
+.first .title h6 {
+    color: white;
+    font-size: 100%;
+}
+
+.first .iconContainer {
+    width: 100%;
+    height: 30vh;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.first .iconBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 33%;
+    height: 50%;
+    padding: 20px;
+    margin-bottom: 2vh;
+}
+
+.first .iconBox:hover {
+    transform: scale(1.2);
+}
+
+.first .iconBox img {
+    height: 45%;
+    fill: white;
+    filter: invert(100%);
+}
+
+.first p {
+    text-align: center;
+    font-size: 2.5vh;
+}
+
+.first .button {
+    margin-top: 2vh;
+    border-color: white;
+}
+
+
+/* End */
+
+@media (min-width: 100px) and (max-width: 850px) {
+    .title h6 {
+        font-size: 65%;
     }
 }
 
-@media (min-width: 750px) and (max-width: 1025px) {
+@media (min-width: 851px) and (max-width: 1025px) {
     body {
         background-color: rgb(39, 36, 80) !important;
     }
