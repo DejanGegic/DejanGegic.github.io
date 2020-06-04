@@ -16,14 +16,14 @@
     background-color: white;
     position: fixed;
     right: 80px;
-    bottom: 50px;
+    top: 50px;
     height: 60px;
     width: 60px;
     border-radius: 100%;
 }
 
 .fas {
-    font-size: 5vh;
+    font-size: 4vh;
     color: black;
 }
 
@@ -214,8 +214,11 @@
 /* End */
 
 @media (min-width: 100px) and (max-width: 850px) {
-    .title h6 {
-        font-size: 65%;
+    #arrowUp {
+        height: 100px;
+    }
+    #arrowUp .fas {
+        font-size: ;
     }
 }
 
@@ -237,6 +240,17 @@
         position: absolute;
         margin: 12px 20px;
         height: 30px;
+    }
+    #arrowUp {
+        top: auto;
+        right: 80px;
+        bottom: 50px;
+        height: 60px;
+        width: 60px;
+        border-radius: 100%;
+    }
+    .fas {
+        font-size: 5vh;
     }
     #containerMain {
         scroll-snap-type: y mandatory;
