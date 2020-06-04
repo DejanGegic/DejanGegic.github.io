@@ -5,11 +5,12 @@
 
 #containerMain {
     font-size: 2.6em;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     /* desktop */
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .containerChild {

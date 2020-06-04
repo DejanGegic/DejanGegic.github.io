@@ -3,7 +3,7 @@ window.addEventListener("resize", provjera);
 provjera();
 
 function provjera() {
-    let visina = screen.height;
+    let visina = window.innerHeight;
 
     kontejner.style.height = visina + "px";
     console.log(kontejner.height);
