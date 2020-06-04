@@ -1,10 +1,30 @@
 * {
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+    text-decoration: none;
 }
 
 .siconIkona {
     display: none;
+}
+
+#arrowUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: fixed;
+    right: 80px;
+    bottom: 50px;
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+}
+
+.fas {
+    font-size: 5vh;
+    color: black;
 }
 
 #containerMain {
@@ -162,6 +182,7 @@
     height: 50%;
     padding: 20px;
     margin-bottom: 2vh;
+    color: white;
 }
 
 .first .iconBox:hover {
@@ -255,10 +276,8 @@
         height: 0px;
     }
     .button a {
-        text-transform: uppercase;
         font-size: 18px;
         font-weight: 500;
-        vertical-align: middle;
     }
     /* First slide, landing */
     #containerLanding {
@@ -327,6 +346,7 @@
     }
     .bottom .paragraph p {
         width: 150%;
+        padding-right: 30px;
     }
     .bottom .button {
         /* delete below */
