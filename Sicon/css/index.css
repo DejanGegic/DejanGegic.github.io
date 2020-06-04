@@ -52,6 +52,11 @@
 
 #containerLanding {
     background-image: url("/sicon/Img/solar_12.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-direction: column;
+    background-position: bottom;
+    height: 100vh;
 }
 
 #container1 .imageMain {
