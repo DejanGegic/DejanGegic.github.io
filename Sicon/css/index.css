@@ -26,8 +26,8 @@
     background-position: center;
 }
 
-#containerLanding .imageMain {
-    background-image: url("https://i.ibb.co/ZhjDMmN/Reservoir-Rendering-A.jpg");
+#containerLanding {
+    background-image: url("/sicon/Img/solar_12.jpg");
 }
 
 #container1 .imageMain {
@@ -118,6 +118,8 @@
 
 
 /* First slide, landing */
+
+#containerMain>#containerLanding {}
 
 .first .textBox {
     justify-content: space-evenly;
@@ -248,6 +250,59 @@
         font-weight: 500;
         vertical-align: middle;
     }
+    /* First slide, landing */
+    #containerMain>#containerLanding {}
+    .first .textBox {
+        justify-content: space-evenly;
+        align-items: center;
+        height: 50vh;
+        color: white;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 10px;
+    }
+    .first .imageContainer {
+        height: 50vh;
+    }
+    .first .title h6 {
+        color: white;
+        font-size: 100%;
+    }
+    .first .iconContainer {
+        width: 100%;
+        height: 30vh;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .first .iconBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 33%;
+        height: 50%;
+        padding: 20px;
+        margin-bottom: 2vh;
+    }
+    .first .iconBox:hover {
+        transform: scale(1.2);
+    }
+    .first .iconBox img {
+        height: 45%;
+        fill: white;
+        filter: invert(100%);
+    }
+    .first p {
+        text-align: center;
+        font-size: 2.5vh;
+    }
+    .first .button {
+        margin-top: 2vh;
+        border-color: white;
+    }
+    /* End */
     /* Content Left */
     .left {
         flex-direction: row-reverse;
