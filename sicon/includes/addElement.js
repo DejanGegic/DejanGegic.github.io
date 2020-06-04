@@ -12,13 +12,13 @@ function dugmici() {
         for (let i = 0; i < 2; i++) {
             desk[i].style.display = "flex";
             mob[i].style.display = "none";
-            console.log("desk");
+
         }
     } else {
         for (let i = 0; i < 2; i++) {
             mob[i].style.display = "flex";
             desk[i].style.display = "none";
-            console.log("mob");
+
         }
     }
 }
