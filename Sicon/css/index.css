@@ -3,6 +3,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.siconIkona {
+    display: none;
+}
+
 #containerMain {
     font-size: 2.6em;
     width: 100%;
@@ -119,7 +123,7 @@
 
 /* First slide, landing */
 
-#containerMain>#containerLanding {}
+#containerLanding {}
 
 .first .textBox {
     justify-content: space-evenly;
@@ -202,6 +206,12 @@
     body {
         transition: 0.3s ease;
     }
+    .siconIkona {
+        display: block;
+        position: absolute;
+        margin: 12px 20px;
+        height: 30px;
+    }
     #containerMain {
         scroll-snap-type: y mandatory;
         overflow-y: scroll;
@@ -251,7 +261,10 @@
         vertical-align: middle;
     }
     /* First slide, landing */
-    #containerMain>#containerLanding {}
+    #containerLanding {
+        flex-direction: column;
+        background-position: bottom;
+    }
     .first .textBox {
         justify-content: space-evenly;
         align-items: center;
@@ -260,47 +273,13 @@
         background-color: rgba(0, 0, 0, 0);
         padding: 10px;
     }
-    .first .imageContainer {
-        height: 50vh;
-    }
-    .first .title h6 {
-        color: white;
-        font-size: 100%;
-    }
-    .first .iconContainer {
-        width: 100%;
-        height: 30vh;
-        padding: 15px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
     .first .iconBox {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        width: 33%;
-        height: 50%;
-        padding: 20px;
-        margin-bottom: 2vh;
+        transition: ease 0.2s;
     }
-    .first .iconBox:hover {
-        transform: scale(1.2);
-    }
-    .first .iconBox img {
-        height: 45%;
-        fill: white;
-        filter: invert(100%);
-    }
-    .first p {
-        text-align: center;
-        font-size: 2.5vh;
-    }
-    .first .button {
-        margin-top: 2vh;
-        border-color: white;
+    .first .button:hover {
+        color: black;
+        background-color: rgb(255, 255, 255);
+        border-color: black;
     }
     /* End */
     /* Content Left */
