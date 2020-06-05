@@ -10,6 +10,7 @@
 }
 
 #arrowUp {
+    z-index: 100;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,7 +185,7 @@
     justify-content: flex-start;
     align-items: center;
     width: 33%;
-    height: 50%;
+    /* height: 50%; */
     padding: 20px;
     margin-bottom: 2vh;
     color: white;
@@ -195,14 +196,14 @@
 }
 
 .first .iconBox img {
-    height: 45%;
+    height: 6vh;
     fill: white;
     filter: invert(100%);
 }
 
 .first p {
     text-align: center;
-    font-size: 2.5vh;
+    font-size: 37px;
 }
 
 .first .button {
