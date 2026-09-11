@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="bs"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow"><title>Pregled — zaključano</title><style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #f7f5ef; color: #1a1a1a; }
+  #mobile, #gate { display: none; }
+  #mobile { max-width: 560px; margin: 20vh auto; padding: 0 20px; text-align: center; }
+  #gate { min-height: 100vh; display: none; flex-direction: column; }
+  #gate.on { display: flex; }
+  #mobile.on { display: block; }
+  header { padding: 28px 20px 8px; text-align: center; }
+  header h1 { font-size: 20px; margin: 0 0 6px; }
+  header p { margin: 0; color: #555; font-size: 14px; }
+  #halves { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .half { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; border-top: 1px solid #ddd; outline: none; }
+  .half:first-child { border-right: 1px solid #ddd; }
+  .half h2 { font-size: 16px; margin: 0 0 4px; }
+  .half .author { font-size: 13px; color: #666; margin-bottom: 16px; }
+  .drop { width: min(420px, 100%); border: 2px dashed #999; border-radius: 12px; background: #fff; padding: 32px 20px; text-align: center; cursor: pointer; transition: border-color 200ms, background 200ms; }
+  .drop small { display: block; margin-top: 10px; color: #777; font-size: 12px; }
+  .half.over .drop { border-color: #F59E0B; background: #fff8e8; }
+  .half.over .drop .hint::after { content: " — pusti za ubacivanje"; color: #92600a; }
+  .half.ok .drop { border-color: #2e7d32; border-style: solid; background: #eef7ee; }
+  .status { margin-top: 12px; font-size: 13px; min-height: 20px; color: #555; }
+  footer { padding: 20px; text-align: center; border-top: 1px solid #ddd; }
+  #unlock { padding: 12px 28px; font-size: 15px; font-weight: 600; border-radius: 8px; border: 1px solid #1E3A5F; background: #1E3A5F; color: #fff; cursor: pointer; }
+  #unlock:disabled { opacity: 0.4; cursor: not-allowed; }
+  #unlock:not(:disabled):hover { background: #152a45; }
+  #restore { color: #555; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
+  #err { color: #c62828; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
+  input[type="file"] { display: none; }
+</style></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled</h1> <p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> </footer> </div> <script>
+  var SNAP_KEY = "sicon-snap";
+
+  var isDesktop = window.matchMedia("(pointer: fine)").matches
+    && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if (!isDesktop) {
+    document.getElementById("mobile").className = "on";
+  } else {
+    document.getElementById("gate").className = "on";
+    restore();
+  }
+
+  // Any dropped file is accepted (no content checks — a wrong file or a swap
+  // surfaces as a decrypt failure on unlock). Unlock enables when both slots
+  // hold a file; the label shows name + KB.
+  var slots = {
+    left: { buf: null, ok: false, half: "halfLeft", drop: "dropLeft", meta: "metaLeft", status: "statusLeft", input: "fileLeft" },
+    right: { buf: null, ok: false, half: "halfRight", drop: "dropRight", meta: "metaRight", status: "statusRight", input: "fileRight" }
+  };
+
+  function setStatus(slot, cls, meta, msg) {
+    var s = slots[slot];
+    var half = document.getElementById(s.half);
+    half.classList.remove("ok");
+    if (cls) half.classList.add(cls);
+    document.getElementById(s.meta).textContent = meta;
+    document.getElementById(s.status).textContent = msg || "";
+  }
+
+  function refresh() {
+    var ready = slots.left.ok && slots.right.ok;
+    document.getElementById("unlock").disabled = !ready;
+    if (ready) document.getElementById("err").textContent = "";
+  }
+
+  async function handle(slot, file) {
+    if (!file) return;
+    var err = document.getElementById("err");
+    err.textContent = "";
+    try {
+      var buf = await file.arrayBuffer();
+      var keyBytes = await crypto.subtle.digest("SHA-256", buf);
+      var s = slots[slot];
+      s.buf = keyBytes; s.ok = true;
+      setStatus(slot, "ok", file.name + " (" + Math.round(file.size / 1024) + " KB)", "Prihvaćeno.");
+    } catch (e) {
+      setStatus(slot, "", file.name, "Datoteku nije moguće pročitati.");
+    }
+    refresh();
+  }
+
+  Object.keys(slots).forEach(function (slot) {
+    var s = slots[slot];
+    var half = document.getElementById(s.half);
+    var drop = document.getElementById(s.drop);
+    var input = document.getElementById(s.input);
+    // Flicker-free dragover highlight: dragenter/dragleave bubble from every
+    // child node, so a per-slot counter holds .over steady until the pointer
+    // truly leaves the slot (dragover preventDefault required for drop).
+    var dragDepth = 0;
+    half.addEventListener("dragenter", function (e) {
+      e.preventDefault();
+      dragDepth++;
+      if (dragDepth === 1) half.classList.add("over");
+    });
+    half.addEventListener("dragover", function (e) { e.preventDefault(); });
+    half.addEventListener("dragleave", function (e) {
+      e.preventDefault();
+      dragDepth--;
+      if (dragDepth < 0) dragDepth = 0;
+      if (dragDepth === 0) half.classList.remove("over");
+    });
+    half.addEventListener("drop", function (e) {
+      e.preventDefault();
+      dragDepth = 0;
+      half.classList.remove("over");
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      handle(slot, f);
+    });
+    drop.addEventListener("click", function () { input.click(); });
+    drop.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") input.click(); });
+    input.addEventListener("change", function () { handle(slot, input.files[0]); input.value = ""; });
+  });
+
+  // ---- Service-worker handoff ----
+  // Decrypted files are served as REAL pages by public/sw.js. The gate posts
+  // {type:'SERVE', gen, files} over a MessageChannel, awaits the port's
+  // READY reply, waits until the worker controls this client, then leaves
+  // with location.replace (never assign) so Back never lands on the gate.
+  var BUNDLE_URL = new URL("site.enc.json", location.href).toString();
+  var MANIFEST_URL = new URL("enc-manifest.json", location.href).toString();
+
+  function b64ToBytes(b64) {
+    var bin = atob(b64);
+    var out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  function withTimeout(promise, ms, label) {
+    return new Promise(function (resolve, reject) {
+      var t = setTimeout(function () { reject(new Error(label || "timeout")); }, ms);
+      promise.then(function (v) { clearTimeout(t); resolve(v); },
+        function (e) { clearTimeout(t); reject(e); });
+    });
+  }
+
+  // A navigation from an uncontrolled client bypasses the worker, so never
+  // leave before the worker controls this page. Failure locks the UI with
+  // the button usable instead of navigating into the 404 stub.
+  function waitForController(ms) {
+    if (navigator.serviceWorker.controller) return Promise.resolve();
+    return withTimeout(new Promise(function (resolve) {
+      function onChange() {
+        navigator.serviceWorker.removeEventListener("controllerchange", onChange);
+        resolve();
+      }
+      navigator.serviceWorker.addEventListener("controllerchange", onChange);
+    }), ms, "controller-timeout");
+  }
+
+  // Validate a ?p= target against the snapshot file list using the SW path
+  // rule (strip one trailing slash, extensionless + ".html"). Miss, junk, or
+  // traversal falls back to "/". Called at most once per page load, so a bad
+  // target can never loop gate -> stub -> gate.
+  function validTarget(raw, files) {
+    var names = {};
+    (files || []).forEach(function (f) { if (f && f.p) names[f.p] = 1; });
+    var path = "/";
+    if (raw) {
+      try { path = decodeURIComponent(raw); }
+      catch (e) { return "/"; }
+    }
+    path = String(path).split("#")[0].split("?")[0];
+    if (path.charAt(0) !== "/") return "/";
+    if (path === "/") return "/";
+    var p = path;
+    if (p.length > 1 && p.charAt(p.length - 1) === "/") p = p.slice(0, -1);
+    var rel = p.replace(/^\/+/, "");
+    if (!rel || rel.indexOf("..") !== -1 || /[^a-zA-Z0-9/_.-]/.test(rel)) return "/";
+    if (names[rel]) return rel === "index.html" ? "/" : "/" + rel;
+    if (!/\.[a-z0-9]+$/i.test(rel) && names[rel + ".html"]) return "/" + rel;
+    return "/";
+  }
+
+  function targetFromQuery(files) {
+    var m = /[?&]p=([^&]+)/.exec(location.search || "");
+    return validTarget(m ? m[1] : "", files);
+  }
+
+  async function serveViaSW(gen, files) {
+    if (!("serviceWorker" in navigator)) throw new Error("no-sw");
+    // gen in the script URL: a relock installs a FRESH worker per lock run
+    // instead of serving the previous bundle from a live stale worker.
+    var reg = await navigator.serviceWorker.register("/sw.js?v=" + encodeURIComponent(gen));
+    await navigator.serviceWorker.ready;
+    var worker = reg.active || navigator.serviceWorker.controller;
+    if (!worker) throw new Error("no-active-worker");
+    // Listener attached BEFORE posting, so a fast READY is never lost.
+    var ch = new MessageChannel();
+    var readyP = new Promise(function (resolve, reject) {
+      ch.port1.onmessage = function (e) {
+        if (e.data && e.data.type === "READY") resolve();
+        else reject(new Error("bad-reply"));
+      };
+    });
+    worker.postMessage({ type: "SERVE", gen: gen, files: files }, [ch.port2]);
+    await withTimeout(readyP, 5000, "ready-timeout");
+    await waitForController(5000);
+  }
+
+  // Same-tab restore: if the worker was killed, the stripped 404 stub sends
+  // the tab back here (?p=<path>) and the snapshot re-posts hands-free.
+  // Runs at most once per page load; any failure lands on the lock screen.
+  var didRestore = false;
+  async function restore() {
+    if (didRestore) return;
+    didRestore = true;
+    var snap = null;
+    try { snap = JSON.parse(sessionStorage.getItem(SNAP_KEY) || "null"); }
+    catch (e) { snap = null; }
+    if (!snap || !snap.gen || !snap.files) return;
+    var line = document.getElementById("restore");
+    if (line) line.textContent = "Vraćam sesiju…";
+    try {
+      var res = await fetch(MANIFEST_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error("manifest");
+      var man = await res.json();
+      if (!man.gen || man.gen !== snap.gen) throw new Error("gen-mismatch");
+      await serveViaSW(snap.gen, snap.files);
+      location.replace(targetFromQuery(snap.files));
+    } catch (e) {
+      // Fail closed to the lock screen (stale snapshot, fetch failure, or SW
+      // timeout). The snapshot is kept: a partial deploy can skew the
+      // manifest gen, and wiping would destroy a still-valid session.
+      if (line) line.textContent = "Vraćanje sesije nije uspjelo. Ubaci obje knjige ponovo.";
+    }
+  }
+
+  document.getElementById("unlock").addEventListener("click", async function () {
+    var err = document.getElementById("err");
+    var btn = document.getElementById("unlock");
+    err.textContent = "";
+    btn.disabled = true;
+    var k1 = null, k2 = null;
+    try {
+      var res = await fetch(BUNDLE_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error("missing");
+      var pack = await res.json();
+      k1 = await crypto.subtle.importKey("raw", slots.left.buf, "AES-GCM", false, ["decrypt"]);
+      k2 = await crypto.subtle.importKey("raw", slots.right.buf, "AES-GCM", false, ["decrypt"]);
+      // Decrypt k2 second-layer first, then k1 (matches scripts/lock-site.mjs).
+      var blob2 = b64ToBytes(pack.data);
+      var c1 = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64ToBytes(pack.iv2) }, k2, blob2);
+      var pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64ToBytes(pack.iv1) }, k1, c1);
+      var bundle = JSON.parse(new TextDecoder().decode(pt));
+      // Files go to the worker STRAIGHT from the decrypted bundle entries
+      // (base64 kept as-is — the SW decodes). NOT the data-less manifest.
+      var files = bundle.files.map(function (f) { return { p: f.p, mime: f.mime, data: f.data }; });
+      var gen = pack.gen || "";
+      try {
+        sessionStorage.setItem(SNAP_KEY, JSON.stringify({ gen: gen, files: files }));
+      } catch (e) {
+        // Quota or private mode: proceed session-only, no snapshot.
+      }
+      // Wipe keys from memory before handing off.
+      try { slots.left.buf.fill(0); } catch (e) {}
+      try { slots.right.buf.fill(0); } catch (e) {}
+      slots.left.buf = null; slots.right.buf = null;
+      k1 = null; k2 = null;
+      await serveViaSW(gen, files);
+      location.replace(targetFromQuery(files));
+    } catch (e) {
+      err.textContent = "Otključavanje nije uspjelo. Provjeri obje datoteke pa pokušaj ponovo.";
+      btn.disabled = !(slots.left.ok && slots.right.ok);
+    }
+  });
+</script> </body> </html>
