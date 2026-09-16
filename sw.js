@@ -70,7 +70,7 @@ self.addEventListener('message', function (event) {
 // Map a same-origin pathname to a bundle path:
 //   "/" -> "index.html"; otherwise strip ONE trailing slash (except root),
 //   then exact match wins, else extensionless + ".html"
-//   ("/o-nama" -> "o-nama.html", "/novosti/" -> "novosti.html").
+//   ("/o-nama" -> "o-nama.html").
 // Returns null on miss — the request falls through to the network and the
 // stripped 404 stub handles it (the worker never fabricates 404s).
 function mapPath(pathname) {
