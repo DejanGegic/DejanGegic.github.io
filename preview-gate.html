@@ -7,8 +7,9 @@
   #gate.on { display: flex; }
   #mobile.on { display: block; }
   header { padding: 28px 20px 8px; text-align: center; }
-  header h1 { font-size: 20px; margin: 0 0 6px; }
-  header p { margin: 0; color: #555; font-size: 14px; }
+   header h1 { font-size: 20px; margin: 0 0 6px; color: #1E3A5F; }
+   header p { margin: 0; color: #555; font-size: 14px; }
+   .ver { display: inline-block; vertical-align: middle; font-size: 11px; font-weight: 600; color: #1E3A5F; border: 1px solid #F59E0B; border-radius: 999px; padding: 1px 8px; margin-left: 8px; letter-spacing: 0.04em; }
   #halves { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
   .half { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; border-top: 1px solid #ddd; outline: none; }
   .half:first-child { border-right: 1px solid #ddd; }
@@ -27,8 +28,7 @@
   #restore { color: #555; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
   #err { color: #c62828; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
   input[type="file"] { display: none; }
-</style><link rel="stylesheet" href="/_astro/index.CGvtLcf0.css"></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled</h1> v0.1
-<p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> </footer> </div> <script>
+</style><link rel="stylesheet" href="/_astro/index.CD-N8Ve_.css"></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled <span class="ver">v0.2</span></h1> <p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> </footer> </div> <script>
   var SNAP_KEY = "sicon-snap";
 
   var isDesktop = window.matchMedia("(pointer: fine)").matches
