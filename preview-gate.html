@@ -15,15 +15,15 @@
   .half:first-child { border-right: 1px solid #ddd; }
   .half > *:not(.bg) { position: relative; z-index: 1; }
   .bg { position: absolute; inset: -4%; z-index: 0; pointer-events: none; overflow: hidden; }
-  .bg svg { width: 100%; height: 100%; display: block; position: absolute; inset: 0; }
-  .bg img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bg svg { width: 100%; height: 100%; display: block; position: absolute; inset: 0; z-index: 0; }
+  .bg img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1; }
   .bg-left { animation: sway-a 46s ease-in-out infinite alternate; }
   .bg-right { animation: sway-b 58s ease-in-out infinite alternate; }
   .bg-left svg { opacity: 0.14; filter: saturate(0.85); }
   .bg-right svg { opacity: 0.12; filter: saturate(0.8); }
-  .bg-left img.photo { opacity: 0.38; filter: brightness(0.7) saturate(0.85); }
-  .bg-right img.photo { opacity: 0.32; filter: brightness(0.78) saturate(0.8) sepia(0.15); }
-  .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(247,245,239,0.68), rgba(247,245,239,0.82)); }
+  .bg-left img.photo { opacity: 0.68; filter: brightness(0.92) saturate(1.05); }
+  .bg-right img.photo { opacity: 0.6; filter: brightness(0.95) saturate(1.0); }
+  .bg::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(rgba(247,245,239,0.42), rgba(247,245,239,0.58)); }
   @keyframes sway-a { from { transform: scale(1.02) translate(-1%, 0); } to { transform: scale(1.07) translate(1%, -1%); } }
   @keyframes sway-b { from { transform: scale(1.06) translate(1%, 0.5%); } to { transform: scale(1.02) translate(-1%, -0.5%); } }
   @media (prefers-reduced-motion: reduce) { .bg-left, .bg-right { animation: none; transform: scale(1.04); } }
