@@ -1,6 +1,6 @@
 {
   "v": 2,
-  "gen": "8df02db307960bd1",
+  "gen": "f6ad2cbf4815fb62",
   "alg": "AES-256-GCM x2 (k1=sisyphus, k2=enchiridion)",
   "bundle": "site.enc.json",
   "files": [
@@ -50,9 +50,9 @@
       "size": 5154
     },
     {
-      "p": "_astro/index.C8gL1j5V.css",
+      "p": "_astro/index.B7EnFBn5.css",
       "mime": "text/css",
-      "size": 47083
+      "size": 47294
     },
     {
       "p": "favicon/favicon.svg",
@@ -77,42 +77,42 @@
     {
       "p": "index.html",
       "mime": "text/html",
-      "size": 84628
+      "size": 84667
     },
     {
       "p": "kontakt.html",
       "mime": "text/html",
-      "size": 25173
+      "size": 25238
     },
     {
       "p": "o-nama.html",
       "mime": "text/html",
-      "size": 19498
+      "size": 19522
     },
     {
       "p": "partneri.html",
       "mime": "text/html",
-      "size": 40234
+      "size": 40258
     },
     {
       "p": "preview-ups.html",
       "mime": "text/html",
-      "size": 111662
+      "size": 111686
     },
     {
       "p": "proizvodi.html",
       "mime": "text/html",
-      "size": 34132
+      "size": 34156
     },
     {
       "p": "reference.html",
       "mime": "text/html",
-      "size": 24616
+      "size": 24640
     },
     {
       "p": "usluge.html",
       "mime": "text/html",
-      "size": 34152
+      "size": 34178
     }
   ]
 }
