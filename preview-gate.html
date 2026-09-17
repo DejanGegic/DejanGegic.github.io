@@ -25,10 +25,13 @@
   #unlock { padding: 12px 28px; font-size: 15px; font-weight: 600; border-radius: 8px; border: 1px solid #1E3A5F; background: #1E3A5F; color: #fff; cursor: pointer; }
   #unlock:disabled { opacity: 0.4; cursor: not-allowed; }
   #unlock:not(:disabled):hover { background: #152a45; }
+  #retry { padding: 12px 28px; font-size: 15px; font-weight: 600; border-radius: 8px; border: 1px solid #1E3A5F; background: #fff; color: #1E3A5F; cursor: pointer; margin-left: 8px; }
+  #retry:hover { background: #fff8e8; border-color: #F59E0B; }
+  #retry[hidden] { display: none; }
   #restore { color: #555; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
   #err { color: #c62828; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
   input[type="file"] { display: none; }
-</style></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled <span class="ver">v0.6</span></h1> <p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> </footer> </div> <script>
+</style></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled <span class="ver">v0.7</span></h1> <p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> <button id="retry" hidden>Pokušaj ponovo</button> </footer> </div> <script>
   var SNAP_KEY = "sicon-snap";
 
   var isDesktop = window.matchMedia("(pointer: fine)").matches
@@ -183,7 +186,7 @@
     // gen in the script URL: a relock installs a FRESH worker per lock run
     // instead of serving the previous bundle from a live stale worker.
     var reg = await navigator.serviceWorker.register("/sw.js?v=" + encodeURIComponent(gen));
-    await navigator.serviceWorker.ready;
+    await withTimeout(navigator.serviceWorker.ready, 5000, "sw-ready-timeout");
     var worker = reg.active || navigator.serviceWorker.controller;
     if (!worker) throw new Error("no-active-worker");
     // Listener attached BEFORE posting, so a fast READY is never lost.
@@ -201,7 +204,8 @@
 
   // Same-tab restore: if the worker was killed, the stripped 404 stub sends
   // the tab back here (?p=<path>) and the snapshot re-posts hands-free.
-  // Runs at most once per page load; any failure lands on the lock screen.
+  // Auto-restore runs once per page load; manual retry via #retry re-arms it.
+  // Any failure lands on the lock screen.
   var didRestore = false;
   async function restore() {
     if (didRestore) return;
@@ -211,6 +215,8 @@
     catch (e) { snap = null; }
     if (!snap || !snap.gen || !snap.files) return;
     var line = document.getElementById("restore");
+    var retry = document.getElementById("retry");
+    if (retry) retry.hidden = true;
     if (line) line.textContent = "Vraćam sesiju…";
     try {
       var res = await fetch(MANIFEST_URL, { cache: "no-store" });
@@ -220,12 +226,35 @@
       await serveViaSW(snap.gen, snap.files);
       location.replace(targetFromQuery(snap.files));
     } catch (e) {
-      // Fail closed to the lock screen (stale snapshot, fetch failure, or SW
-      // timeout). The snapshot is kept: a partial deploy can skew the
-      // manifest gen, and wiping would destroy a still-valid session.
-      if (line) line.textContent = "Vraćanje sesije nije uspjelo. Ubaci obje knjige ponovo.";
+      // Fail closed to the lock screen. Snapshot is wiped only on
+      // gen-mismatch (a new version was published), otherwise kept for retry.
+      var code = (e && e.message) || "unknown";
+      if (code === "gen-mismatch") {
+        console.error("restore failed: gen-mismatch", e);
+        try { sessionStorage.removeItem(SNAP_KEY); } catch (err) {}
+        if (line) line.textContent = "Objavljena je nova verzija pregleda. Ubaci obje knjige ponovo.";
+      } else if (code === "manifest") {
+        console.error("restore failed: manifest", e);
+        if (line) line.textContent = "Pregled nije dostupan. Provjeri vezu pa pokušaj ponovo.";
+        if (retry) retry.hidden = false;
+        didRestore = false;
+      } else {
+        console.error("restore failed: " + code, e);
+        if (line) line.textContent = "Vraćanje sesije nije uspjelo (" + code + "). Pokušaj ponovo ili ubaci knjige.";
+        if (retry) retry.hidden = false;
+        didRestore = false;
+      }
     }
   }
+
+  document.getElementById("retry").addEventListener("click", function () {
+    didRestore = false;
+    var retry = document.getElementById("retry");
+    if (retry) retry.hidden = true;
+    var line = document.getElementById("restore");
+    if (line) line.textContent = "";
+    restore();
+  });
 
   document.getElementById("unlock").addEventListener("click", async function () {
     var err = document.getElementById("err");
