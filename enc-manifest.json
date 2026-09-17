@@ -1,6 +1,6 @@
 {
   "v": 2,
-  "gen": "006a60f55a880eda",
+  "gen": "3bf1bc94c0b1f433",
   "alg": "AES-256-GCM x2 (k1=sisyphus, k2=enchiridion)",
   "bundle": "site.enc.json",
   "files": [
@@ -50,9 +50,9 @@
       "size": 5154
     },
     {
-      "p": "_astro/index.9qvwzJTQ.css",
+      "p": "_astro/index.3A-Lw62x.css",
       "mime": "text/css",
-      "size": 48012
+      "size": 45475
     },
     {
       "p": "favicon/favicon.svg",
@@ -78,11 +78,6 @@
       "p": "index.html",
       "mime": "text/html",
       "size": 82051
-    },
-    {
-      "p": "kako-radi-zastita.html",
-      "mime": "text/html",
-      "size": 39135
     },
     {
       "p": "kontakt.html",
