@@ -1,6 +1,6 @@
 {
   "v": 2,
-  "gen": "3193fa9e847d9ac9",
+  "gen": "374667c8455562ca",
   "alg": "AES-256-GCM x2 (k1=sisyphus, k2=enchiridion)",
   "bundle": "site.enc.json",
   "files": [
@@ -77,7 +77,7 @@
     {
       "p": "index.html",
       "mime": "text/html",
-      "size": 83888
+      "size": 83886
     },
     {
       "p": "kontakt.html",
@@ -97,7 +97,7 @@
     {
       "p": "preview-ups.html",
       "mime": "text/html",
-      "size": 111366
+      "size": 111362
     },
     {
       "p": "proizvodi.html",
