@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="bs"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow"><title>Pregled — zaključano</title><style>
+<!DOCTYPE html><html lang="bs"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow"><title>Pregled — zaključano</title><link rel="preconnect" href="https://commons.wikimedia.org" crossorigin><link rel="preconnect" href="https://upload.wikimedia.org" crossorigin><style>
   * { box-sizing: border-box; }
   body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #f7f5ef; color: #1a1a1a; }
   #mobile, #gate { display: none; }
@@ -11,8 +11,22 @@
    header p { margin: 0; color: #555; font-size: 14px; }
    .ver { display: inline-block; vertical-align: middle; font-size: 11px; font-weight: 600; color: #1E3A5F; border: 1px solid #F59E0B; border-radius: 999px; padding: 1px 8px; margin-left: 8px; letter-spacing: 0.04em; }
   #halves { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .half { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; border-top: 1px solid #ddd; outline: none; }
+  .half { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; border-top: 1px solid #ddd; outline: none; position: relative; overflow: hidden; isolation: isolate; }
   .half:first-child { border-right: 1px solid #ddd; }
+  .half > *:not(.bg) { position: relative; z-index: 1; }
+  .bg { position: absolute; inset: -4%; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bg svg { width: 100%; height: 100%; display: block; position: absolute; inset: 0; }
+  .bg img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bg-left { animation: sway-a 46s ease-in-out infinite alternate; }
+  .bg-right { animation: sway-b 58s ease-in-out infinite alternate; }
+  .bg-left svg { opacity: 0.14; filter: saturate(0.85); }
+  .bg-right svg { opacity: 0.12; filter: saturate(0.8); }
+  .bg-left img.photo { opacity: 0.38; filter: brightness(0.7) saturate(0.85); }
+  .bg-right img.photo { opacity: 0.32; filter: brightness(0.78) saturate(0.8) sepia(0.15); }
+  .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(247,245,239,0.68), rgba(247,245,239,0.82)); }
+  @keyframes sway-a { from { transform: scale(1.02) translate(-1%, 0); } to { transform: scale(1.07) translate(1%, -1%); } }
+  @keyframes sway-b { from { transform: scale(1.06) translate(1%, 0.5%); } to { transform: scale(1.02) translate(-1%, -0.5%); } }
+  @media (prefers-reduced-motion: reduce) { .bg-left, .bg-right { animation: none; transform: scale(1.04); } }
   .half h2 { font-size: 16px; margin: 0 0 4px; }
   .half .author { font-size: 13px; color: #666; margin-bottom: 16px; }
   .drop { width: min(420px, 100%); border: 2px dashed #999; border-radius: 12px; background: #fff; padding: 32px 20px; text-align: center; cursor: pointer; transition: border-color 200ms, background 200ms; }
@@ -25,13 +39,10 @@
   #unlock { padding: 12px 28px; font-size: 15px; font-weight: 600; border-radius: 8px; border: 1px solid #1E3A5F; background: #1E3A5F; color: #fff; cursor: pointer; }
   #unlock:disabled { opacity: 0.4; cursor: not-allowed; }
   #unlock:not(:disabled):hover { background: #152a45; }
-  #retry { padding: 12px 28px; font-size: 15px; font-weight: 600; border-radius: 8px; border: 1px solid #1E3A5F; background: #fff; color: #1E3A5F; cursor: pointer; margin-left: 8px; }
-  #retry:hover { background: #fff8e8; border-color: #F59E0B; }
-  #retry[hidden] { display: none; }
   #restore { color: #555; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
   #err { color: #c62828; font-size: 13px; min-height: 20px; margin-bottom: 10px; }
   input[type="file"] { display: none; }
-</style></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled <span class="ver">v0.8</span></h1> <p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> <button id="retry" hidden>Pokušaj ponovo</button> </footer> </div> <script>
+</style></head> <body> <div id="mobile"> <h1>Potreban je desktop.</h1> <p>Otvori ovu stranicu u pregledniku na računaru.</p> </div> <div id="gate"> <header> <h1>Zaključan pregled <span class="ver">v0.9</span></h1> <p>Ubaci obje knjige da otključaš pregled. Pazi koja ide lijevo, a koja desno.</p> </header> <div id="halves"> <section class="half" id="halfLeft" aria-label="Lijevi pretinac"> <div class="bg bg-left" aria-hidden="true"> <!-- Titian, Sisyphus 1548-49 (PD). Fallback pinned thumb: upload.wikimedia.org/wikipedia/commons/thumb/3/33/Titian_-_Sisyphus_-_Madrid_-_Prado.jpg/800px-... --> <img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Titian_-_Sisyphus_-_Madrid_-_Prado.jpg?width=800" alt="" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'"> <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" focusable="false"> <g fill="none" stroke-linecap="round"> <path d="M-20 360 L170 150 L430 330 L430 430 L-20 430 Z" fill="#3a2d20" opacity="0.5" stroke="none"></path> <path d="M-20 380 L150 210 L430 370" stroke="#2b2118" stroke-width="3" opacity="0.5"></path> <circle cx="228" cy="148" r="40" fill="#2b2118" opacity="0.85" stroke="none"></circle> <circle cx="228" cy="148" r="40" stroke="#4a3825" stroke-width="2" opacity="0.6"></circle> <path d="M175 235 L205 200 L232 185" stroke="#2b2118" stroke-width="10"></path> <circle cx="168" cy="242" r="9" fill="#2b2118" stroke="none"></circle> <path d="M205 200 L188 228 M205 200 L222 224" stroke="#2b2118" stroke-width="7"></path> <ellipse cx="300" cy="90" rx="52" ry="16" fill="#F59E0B" opacity="0.28" stroke="none"></ellipse> <ellipse cx="330" cy="70" rx="30" ry="10" fill="#F59E0B" opacity="0.2" stroke="none"></ellipse> </g> </svg> </div> <h2>Mit o Sizifu</h2> <div class="author">Albert Camus</div> <div class="drop" id="dropLeft" role="button" tabindex="0" aria-label="Ubaci datoteku — Sizif"> <span class="hint">Spusti Sizifovu knjigu ovdje ili klikni za odabir</span> <small id="metaLeft">čeka se</small> </div> <div class="status" id="statusLeft"></div> <input type="file" id="fileLeft"> </section> <section class="half" id="halfRight" aria-label="Desni pretinac"> <div class="bg bg-right" aria-hidden="true"> <!-- Epictetus frontispiece, Ivie Enchiridion Oxford 1715 (PD). Fallback pinned thumb: upload.wikimedia.org/wikipedia/commons/thumb/0/00/Epicteti_Enchiridion.../800px-... --> <img class="photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece.jpg?width=800" alt="" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none'"> <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" focusable="false"> <g stroke="#1E3A5F" fill="none" opacity="0.9"> <path d="M40 120 L200 70 L360 120 Z" stroke-width="3"></path> <path d="M60 130 L340 130" stroke-width="3"></path> <g stroke-width="6"> <path d="M90 145 L90 300 M130 145 L130 300 M175 145 L175 300 M225 145 L225 300 M270 145 L270 300 M310 145 L310 300"></path> </g> <g stroke-width="3"> <path d="M78 145 L102 145 M118 145 L142 145 M163 145 L187 145 M213 145 L237 145 M258 145 L282 145 M298 145 L322 145"></path> <path d="M78 300 L102 300 M118 300 L142 300 M163 300 L187 300 M213 300 L237 300 M258 300 L282 300 M298 300 L322 300"></path> </g> <circle cx="200" cy="230" r="34" stroke-width="3"></circle> <path d="M170 285 Q200 262 230 285 L236 300 L164 300 Z" stroke-width="3"></path> <path d="M60 330 L340 330" stroke-width="2" opacity="0.6"></path> </g> </svg> </div> <h2>Enhiridion</h2> <div class="author">Epiktet</div> <div class="drop" id="dropRight" role="button" tabindex="0" aria-label="Ubaci datoteku — Enhiridion"> <span class="hint">Spusti Enhiridion ovdje ili klikni za odabir</span> <small id="metaRight">čeka se</small> </div> <div class="status" id="statusRight"></div> <input type="file" id="fileRight"> </section> </div> <footer> <div id="restore"></div> <div id="err"></div> <button id="unlock" disabled>Otključaj</button> </footer> </div> <script>
   var SNAP_KEY = "sicon-snap";
 
   var isDesktop = window.matchMedia("(pointer: fine)").matches
@@ -202,10 +213,15 @@
     await waitForController(5000);
   }
 
+  function sleep(ms) {
+    return new Promise(function (r) { setTimeout(r, ms); });
+  }
+
   // Same-tab restore: if the worker was killed, the stripped 404 stub sends
   // the tab back here (?p=<path>) and the snapshot re-posts hands-free.
-  // Auto-restore runs once per page load; manual retry via #retry re-arms it.
-  // Any failure lands on the lock screen.
+  // Runs once per page load, with silent internal retries for transient
+  // failures. Transient failure lands on a CLEAN lock screen (no error text)
+  // so you just insert the books. Only a published new version shows a hint.
   var didRestore = false;
   async function restore() {
     if (didRestore) return;
@@ -215,50 +231,55 @@
     catch (e) { snap = null; }
     if (!snap || !snap.gen || !snap.files) return;
     var line = document.getElementById("restore");
-    var retry = document.getElementById("retry");
-    if (retry) retry.hidden = true;
     if (line) line.textContent = "Vraćam sesiju…";
-    try {
-      var res = await fetch(MANIFEST_URL, { cache: "no-store" });
-      if (!res.ok) throw new Error("manifest");
-      var man = await res.json();
-      if (!man.gen || man.gen !== snap.gen) throw new Error("gen-mismatch");
-      await serveViaSW(snap.gen, snap.files);
-      location.replace(targetFromQuery(snap.files));
-    } catch (e) {
-      // Fail closed to the lock screen. Snapshot is wiped only on
-      // gen-mismatch (a new version was published), otherwise kept for retry.
-      var code = (e && e.message) || "unknown";
-      if (code === "gen-mismatch") {
-        console.error("restore failed: gen-mismatch", e);
-        try { sessionStorage.removeItem(SNAP_KEY); } catch (err) {}
-        if (line) line.textContent = "Objavljena je nova verzija pregleda. Ubaci obje knjige ponovo.";
-      } else if (code === "manifest") {
-        console.error("restore failed: manifest", e);
-        if (line) line.textContent = "Pregled nije dostupan. Provjeri vezu pa pokušaj ponovo.";
-        if (retry) retry.hidden = false;
-        didRestore = false;
-      } else {
-        console.error("restore failed: " + code, e);
-        if (line) line.textContent = "Vraćanje sesije nije uspjelo (" + code + "). Pokušaj ponovo ili ubaci knjige.";
-        if (retry) retry.hidden = false;
-        didRestore = false;
+    var attempt = 0;
+    while (attempt < 3) {
+      try {
+        var res = await fetch(MANIFEST_URL, { cache: "no-store" });
+        if (!res.ok) throw new Error("manifest");
+        var man = await res.json();
+        if (!man.gen || man.gen !== snap.gen) throw new Error("gen-mismatch");
+        await serveViaSW(snap.gen, snap.files);
+        location.replace(targetFromQuery(snap.files));
+        return;
+      } catch (e) {
+        var code = (e && e.message) || "unknown";
+        if (code === "gen-mismatch") {
+          console.error("restore failed: gen-mismatch", e);
+          try { sessionStorage.removeItem(SNAP_KEY); } catch (err) {}
+          if (line) line.textContent = "Objavljena je nova verzija pregleda. Ubaci obje knjige ponovo.";
+          return;
+        }
+        attempt++;
+        console.error("restore attempt " + attempt + " failed: " + code, e);
+        if (attempt >= 3) {
+          // Fail silent to a clean lock screen. Unlock starts fresh anyway,
+          // so there is nothing to retry by hand here.
+          if (line) line.textContent = "";
+          return;
+        }
+        await sleep(400 * attempt);
+        if (line) line.textContent = "Vraćam sesiju…";
       }
     }
   }
 
-  document.getElementById("retry").addEventListener("click", function () {
-    didRestore = false;
-    var retry = document.getElementById("retry");
-    if (retry) retry.hidden = true;
-    var line = document.getElementById("restore");
-    if (line) line.textContent = "";
-    restore();
-  });
-
   document.getElementById("unlock").addEventListener("click", async function () {
     var err = document.getElementById("err");
     var btn = document.getElementById("unlock");
+    var line = document.getElementById("restore");
+    // Clean unlock: nuke any stale session state first so the new bundle
+    // starts fresh (old snapshot, site storage, worker caches).
+    try { sessionStorage.removeItem(SNAP_KEY); } catch (e) {}
+    try { localStorage.clear(); } catch (e) {}
+    try {
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        }).catch(function () {});
+      }
+    } catch (e) {}
+    if (line) line.textContent = "";
     err.textContent = "";
     btn.disabled = true;
     var k1 = null, k2 = null;
