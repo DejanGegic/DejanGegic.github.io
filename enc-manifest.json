@@ -1,6 +1,6 @@
 {
   "v": 2,
-  "gen": "96f08d8fc2abe978",
+  "gen": "3193fa9e847d9ac9",
   "alg": "AES-256-GCM x2 (k1=sisyphus, k2=enchiridion)",
   "bundle": "site.enc.json",
   "files": [
@@ -50,9 +50,9 @@
       "size": 5154
     },
     {
-      "p": "_astro/index.CNwsNKm-.css",
+      "p": "_astro/index.CMlcU1Vu.css",
       "mime": "text/css",
-      "size": 46394
+      "size": 46570
     },
     {
       "p": "favicon/favicon.svg",
@@ -77,7 +77,7 @@
     {
       "p": "index.html",
       "mime": "text/html",
-      "size": 83051
+      "size": 83888
     },
     {
       "p": "kontakt.html",
@@ -97,7 +97,7 @@
     {
       "p": "preview-ups.html",
       "mime": "text/html",
-      "size": 110638
+      "size": 111366
     },
     {
       "p": "proizvodi.html",
