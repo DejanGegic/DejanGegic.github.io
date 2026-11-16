@@ -96,7 +96,7 @@ self.addEventListener('fetch', function (event) {
   } catch (e) {
     return;
   }
-  if (url.origin !== self.location.origin) return; // fonts etc. pass through
+  if (url.origin !== self.location.origin) return; // cross-origin: network only, never in the bundle
   var key = mapPath(url.pathname); // query stripped by using pathname
   if (!key) return; // miss or empty store -> network (404 stub on stripped dist)
   var entry = store.map.get(key);
